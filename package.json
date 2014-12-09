@@ -1,0 +1,38 @@
+{
+  "name": "gulp-htmlone",
+  "version": "0.0.1",
+  "description": "combo js & css assests to html doc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amfe/or.htmlone.gulp.git"
+  },
+  "keywords": [
+    "htmlone",
+    "gulp",
+    "gulpplugin"
+  ],
+  "author": "cenan.chr@alibaba-inc.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amfe/or.htmlone.gulp/issues"
+  },
+  "homepage": "https://github.com/amfe/or.htmlone.gulp",
+
+  "dependencies": {
+    "through2": "^0.6.1",
+    "gulp-util": "^3.0.0",
+    "merge": "^1.1.3",
+    "vinyl-sourcemaps-apply": "~0.1.1",
+    "cheerio": "~0.17.0",
+    "download": "^3.1.2",
+    "less": "~1.7.3",
+    "uglify-js": "~2.4.0"
+  },
+   "devDependencies": {
+    "gulp": "~3.8.10"
+  }
+}
