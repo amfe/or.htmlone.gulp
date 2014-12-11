@@ -1,23 +1,28 @@
 var fs = require('fs');
 var path = require('path');
 var http = require('http');
+var os = require('os');
  
 var mkdirSync = function (url,mode,cb){
-    var arr = url.split("/");
+    var pf = os.platform();
+    var s = /^win\d+/i.test(pf) ? '\\' : '/';
+
+    var arr = url.split(s);
     mode = mode || 0755;
     cb = cb || function(){};
     if(arr[0]==="."){//处理 ./aaa
         arr.shift();
     }
     if(arr[0] == ".."){//处理 ../ddd/d
-        arr.splice(0,2,arr[0]+"/"+arr[1])
+        arr.splice(0,2,arr[0]+s+arr[1])
     }
     function inner(cur){
         if(!fs.existsSync(cur)){//不存在就创建一个
+            console.log(cur)
             fs.mkdirSync(cur, mode)
         }
         if(arr.length){
-            inner(cur + "/"+arr.shift());
+            inner(cur + s +arr.shift());
         }else{
             cb();
         }

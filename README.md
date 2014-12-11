@@ -1,6 +1,6 @@
 # gulp-htmlone
 
-version 0.0.1
+version 0.0.3
 combo and minify `css` and `js` to html. no matter the file is online or not.
 
 ## Usage
@@ -31,3 +31,6 @@ gulp.src('./src/*.html')
 ## License
 MIT
 
+## Changelog
+
+- 0.0.3 修复windows 下 `mkdirp` 的问题
