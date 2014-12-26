@@ -1,6 +1,6 @@
 # gulp-htmlone
 
-version 0.0.3
+version 0.0.4
 combo and minify `css` and `js` to html. no matter the file is online or not.
 
 ## Usage
@@ -21,6 +21,7 @@ then gulp will combo the `<script data-htmlone>` and `<link rel="stylesheet" dat
 ```javascript
 gulp.src('./src/*.html')
     .pipe(htmlone({
+    	removeSelector: '[will-remove]',
         keyattr: 'data-htmlone',
         cssminify: true,
         jsminify: true
@@ -34,3 +35,4 @@ MIT
 ## Changelog
 
 - 0.0.3 修复windows 下 `mkdirp` 的问题
+- 0.0.4 加上`removeSelector` 配置

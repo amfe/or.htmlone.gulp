@@ -30,6 +30,9 @@ var dealScripts = function (htmlpath, htmlFrag, options, cb) {
 
       //console.log(htmlFrag, options);
       var $ = cheerio.load(htmlFrag, {decodeEntities: false, normalizeWhitespace: false});
+      if (options.removeSelector) {
+        $(options.removeSelector).remove();
+      }
       
       // deal js
       var todoJs = 0;
@@ -187,6 +190,7 @@ var dealScripts = function (htmlpath, htmlFrag, options, cb) {
 module.exports = function (opt) {
 
     var options = extend({
+        removeSelector: '[will-remove]',
         keyattr: 'data-htmlone',
         cssminify: true,
         jsminify: true

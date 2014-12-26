@@ -18,7 +18,7 @@ var mkdirSync = function (url,mode,cb){
     }
     function inner(cur){
         if(!fs.existsSync(cur)){//不存在就创建一个
-            console.log(cur)
+            //console.log(cur)
             fs.mkdirSync(cur, mode)
         }
         if(arr.length){
