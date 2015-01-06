@@ -1,20 +1,20 @@
 var through = require('through2');
 var gutil = require('gulp-util');
-var applySourceMap = require('vinyl-sourcemaps-apply');
 var path = require('path');
-var merge = require('merge');
 
-var path = require('path');
 var cheerio = require('cheerio');
 var uglify = require('uglify-js');
 var less = require('less');
 var fs = require('fs');
-var fsutil = require('./fsutil');
+var fsutil = require('fsmore');
 var url = require('url');
 var http = require('http');
+var coimport = require('coimport');
+
 
 var PluginError = gutil.PluginError;
 var pluginName = 'gulp-htmlone';
+var TEMP_DIR = 'htmlone_temp';
 
 function extend (dest, source, isOverwrite) {
     if (isOverwrite == undefined) isOverwrite = true;
@@ -26,75 +26,45 @@ function extend (dest, source, isOverwrite) {
     return dest;
 }
 
-var dealScripts = function (htmlpath, htmlFrag, options, cb) {
+var __uniqueId = function () {
+  var i = 0;
+  return function () {
+    return i ++;
+  }
+}();
 
-      //console.log(htmlFrag, options);
-      var $ = cheerio.load(htmlFrag, {decodeEntities: false, normalizeWhitespace: false});
-      if (options.removeSelector) {
-        $(options.removeSelector).remove();
-      }
-      
-      // deal js
-      var todoJs = 0;
-      var doneJs = 0;
-      var todownloadCss = 0;
-      var downloadedCss = 0;
-      var isJsDone = false;
-      var isCssDone = false;
+// js process
+var JsProcessor = function ($, options, cb) {
+  this.doneJs = 0;
+  this.isDone = false;
+  this.cb = cb;
+  this.options = options;
+  this.$js = $('script');
+  this.$ = $;
 
-      var __minifyAndReplace = function ($js, jscon) {
+  var js = this.$js;
+  var me = this;
+  var htmlpath = options.htmlpath;
 
-          if (options.jsminify) {
-            jscon = uglify.minify(jscon, {
-              fromString: true,
-              mangle: true
-            }).code;
-          }
+  if (js.length === 0) {
+      this.isDone = true;
+      this.cb && this.cb();
+    } else {
+      js.each(function (i, el) {
+          var $el = $(this);
+          var src = $(this).attr('src');
+          var type = $(this).attr('type');
+          var oldCon = $(this).html();
+          var newCon = '\n';
+          var isKeeplive = $el.is(options.keepliveSelector);
 
-          // $js.removeAttr(options.keyattr)
-          //     .removeAttr('src')
-          //     .html(jscon);
-          $js.replaceWith('<script>'+jscon+'</script>')
-      };
-      var __checkJsDone = function () {
-          if (doneJs === js.length) {
-              isJsDone = true;
-              __checkAllDone();
-          }
-      };
-
-      var __checkAllDone = function () {
-        if (isJsDone && isCssDone) {
-          cb && cb($.html());
-        }
-      };
-
-      var __uniqueId = function () {
-        var i = 0;
-        return function () {
-          return i ++;
-        }
-      }()
-
-      var js = $('script['+options.keyattr+']');
-      if (js.length === 0) {
-        isJsDone = true;
-        __checkAllDone();
-      } else {
-        js.each(function (i, el) {
-            var $js = $(this);
-            var src = $(this).attr('src');
-
-            var oldCon = $(this).html();
-            var newCon = '\n';
-
+          if ((!type || type === 'text/javascript') && !!src && !isKeeplive) { 
             if (!/^http/.test(src)) {
               var jssrc = path.join(path.dirname(htmlpath), src);
               if (fs.lstatSync(jssrc).isFile()) { 
                 newCon += fs.readFileSync(jssrc, {encoding: 'utf8'});
-                __minifyAndReplace($js, newCon);
-                doneJs ++;
-                __checkJsDone();
+                me.__minifyAndReplace($el, newCon);
+                me.__checkJsDone();
               } else {
                 console.log('"'+src+'" in "' + htmlpath + '" is an invalid file or url!');
               }
@@ -102,87 +72,232 @@ var dealScripts = function (htmlpath, htmlFrag, options, cb) {
               //download & replace
               if (/\?\?/.test(src)) {
                   //cdn combo
-                  var destPath = path.join('temp', 'cdn_combo_'+__uniqueId() + '.js');
+                  var destPath = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.js');
                 } else {
-                  var destPath = path.join('temp', url.parse(src).pathname); 
+                  var destPath = path.join(TEMP_DIR, url.parse(src).pathname); 
                 }
 
               fsutil.download(src, destPath, function ($js, destPath) {
                 return function () {
                   console.log('"'+destPath+'" downloaded!');
-                  __minifyAndReplace($js, fs.readFileSync(destPath, {encoding:'utf8'}));
-                  doneJs ++;
-                  __checkJsDone();
+                  me.__minifyAndReplace($el, fs.readFileSync(destPath, {encoding:'utf8'}));
+                  me.__checkJsDone();
                 }
-              }($js, destPath));
+              }($el, destPath));
             }
-
-        });
-      }
-
-      
-
-      // deal css
-      var css = $('link['+options.keyattr+']');
-      var _i = 0;
-      var _checkCssDone = function () {
-        if (_i === css.length) {
-          isCssDone = true;
-          __checkAllDone();
-        }
-      };
-      var __cssMinifyAndReplace = function ($css, cssCon) {
-          if (options.cssminify) {
-              less.render(cssCon, {compress:true}, function (e, output) {
-                  var style = $('<style>'+output+'</style>');
-                  $css.replaceWith(style);
-                  _i ++;
-                  _checkCssDone();
-              });
           } else {
-            var style = $('<style>'+cssCon+'</style>');
-            $css.replaceWith(style);
-            _i ++;
-            _checkCssDone();
+            me.__checkJsDone();
           }
-      };
 
-      if (css.length === 0) {
-        isCssDone = true;
-        __checkAllDone();
+      });
+    }
+};
+JsProcessor.prototype = {
+  __minifyAndReplace: function ($el, jscon) {
+    if (this.options.jsminify) {
+      jscon = uglify.minify(jscon, {
+        fromString: true,
+        mangle: true
+      }).code;
+    }
+
+    // do not use .html()
+    $el.empty().removeAttr('src');
+    var replaceStr = this.$.html($el).replace(/<\/script>/i, '') + jscon + '</script>';
+    $el.replaceWith(replaceStr);
+  },
+  __checkJsDone: function () {
+    this.doneJs ++;
+    if (this.doneJs === this.$js.length) {
+        this.isDone = true;
+        this.cb && this.cb();
+    }
+  }
+};
+
+
+// css processor
+var CssProcessor = function ($, options, cb) {
+  this._done = 0;
+  this.options = options;
+  this.cb = cb;
+
+  this.$ = $;
+  this.$css = $('link[rel=stylesheet]');
+  this.fixRelaPath = path.relative(options.destDir, './');
+
+  var css = this.$css;
+  var htmlpath = options.htmlpath;
+  var me = this;
+
+  if (css.length === 0) {
+        this.isDone = true;
+        this.cb && this.cb();
       } else {
         css.each(function (i, el) {
             var href = $(this).attr('href'); 
             var newCon = '\n';
-            var me = this;
             var $css = $(this);
 
             if (!/^http/.test(href)) {
               var csshref = path.join(path.dirname(htmlpath), href);
               if (fs.lstatSync(csshref).isFile()) {
                 newCon += (fs.readFileSync(csshref, {encoding:'utf8'}) + '\n');
-                __cssMinifyAndReplace($css, newCon);
+                var coimportFile = csshref + '.coimport';
+                fs.writeFileSync(coimportFile, newCon, {encoding: 'utf8'});
+                if (options.coimport) {
+                  //todo
+                  coimport(coimportFile, function ($css, csshref, coimportFile) {
+                    return function (newStr) {
+                      me.__cssMinifyAndReplace($css, csshref, newStr);
+                      fsutil.rmdirSync(coimportFile);
+                    }
+                  }($css, csshref, coimportFile))
+                } else {
+                  me.__cssMinifyAndReplace($css, csshref, newCon);
+                }
               } else {
                 console.log('"'+href+'" in "' + htmlpath + '" is an invalid file or url!');
               }
             } else {
               if (/\?\?/.test(href)) {
                   //cdn combo
-                  var tempDestFile = path.join('temp', 'cdn_combo_'+__uniqueId() + '.css');
+                  var tempDestFile = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.css');
                 } else {
-                  var tempDestFile = path.join('temp', url.parse(href).pathname); 
+                  var tempDestFile = path.join(TEMP_DIR, url.parse(href).pathname); 
                 }
                 
                 fsutil.download(href, tempDestFile, function ($css, tempDestFile) {
                   return function () {
                       console.log('"'+tempDestFile+'" downloaded!');
-                      __cssMinifyAndReplace($css, fs.readFileSync(tempDestFile, {encoding:'utf8'}));
+                      var cssStr = fs.readFileSync(tempDestFile, {encoding:'utf8'});
+                      cssStr = me.fixAssetsPath(href, cssStr);
+                      var coimportFile = tempDestFile + '.coimport';
+                      fs.writeFileSync(coimportFile, cssStr, {encoding: 'utf8'});
+
+                      if (options.coimport) {
+                        coimport(coimportFile, function ($css, csshref) {
+                          return function (newStr) {
+                            me.__cssMinifyAndReplace($css, csshref, newStr);
+                          }
+                        }($css, href))
+
+                      } else {
+                        me.__cssMinifyAndReplace($css, href, cssStr);
+                      }
                   }
                 }($css, tempDestFile));
             }
 
         });
       }
+};
+CssProcessor.prototype = {
+  _checkCssDone: function () {
+    if (this._done === this.$css.length) {
+      this.isDone = true;
+      this.cb && this.cb();
+    }
+  },
+  __cssMinifyAndReplace: function ($css, sourcePath, cssCon) {
+      var $ = this.$;
+      var me = this;
+      if (this.options.cssminify) {
+          less.render(cssCon, {compress:true}, function (e, output) {
+              output = me.fixAssetsPath(sourcePath, output);
+              var style = $('<style>'+output+'</style>');
+              $css.replaceWith(style);
+              me._done ++;
+              me._checkCssDone();
+          });
+      } else {
+        var style = $('<style>'+cssCon+'</style>');
+        cssCon = me.fixAssetsPath(sourcePath, cssCon);
+        $css.replaceWith(style);
+        this._done ++;
+        this._checkCssDone();
+      }
+  },
+  fixAssetsPath: function (sourcePath, cssStr) {
+    var con = this.uniform(cssStr);
+    var dirname = path.dirname(this.options.htmlpath);
+    var b = sourcePath;
+    var me = this;
+    // fix relative path or `url`
+    con = con.replace(/url\(\s*([\S^\)]+)\s*\)/g, function (c, d) {
+        if (/^http/.test(d)) return c;
+        var file_dirname = path.dirname(path.resolve(dirname, b));
+        var assetpath = path.resolve(file_dirname, d);
+        assetpath = path.relative(dirname, assetpath);
+        if (!/^http/.test(assetpath)) {
+          assetpath = path.join(me.fixRelaPath, assetpath);
+        }
+        return 'url('+assetpath+')';
+    });
+    // fix relative path of `import string`
+    con = con.replace(/@import\s*"([^"]+)"\s*;/g, function (e, f) {
+        if (/^http/.test(f)) return e;
+        var file_dirname = path.dirname(path.resolve(dirname, b));
+        var assetpath = path.resolve(file_dirname, f);
+        assetpath = path.relative(dirname, assetpath);
+        if (!/^http/.test(assetpath)) {
+          assetpath = path.join(me.fixRelaPath, assetpath);
+        }
+        return '@import "'+assetpath+'";';
+    });
+    return con;
+  },
+  uniform: function (css) {
+    // uniform @import
+      css = css
+        .replace(/@import\s+url\(\s*"([^"]+)"\s*\)\s*;/g, '@import "$1";')
+        .replace(/@import\s+url\(\s*\'([^\']+)\'\s*\)\s*;/g, '@import "$1";')
+        .replace(/@import\s+url\(\s*([\S^\)]+)\s*\)\s*;/g, '@import "$1";')
+        .replace(/@import\s*"([^"]+)"\s*;/g, '@import "$1";')
+        .replace(/@import\s*\'([^\']+)\'\s*;/g, '@import "$1";');
+        
+      // uniform url()
+      css = css
+        .replace(/url\(\s*"([^"]+)"\s*\)/g, 'url($1)')
+        .replace(/url\(\s*\'([^\']+)\'\s*\)/g, 'url($1)')
+        .replace(/url\(\s*([\S^\)]+)\s*\)/g, 'url($1)');
+
+        return css;
+    }
+};
+
+var dealScripts = function (htmlpath, htmlFrag, options, cb) {
+
+      //console.log(htmlFrag, options);
+      var $ = cheerio.load(htmlFrag, {decodeEntities: false, normalizeWhitespace: false});
+      if (options.removeSelector) {
+        $(options.removeSelector).remove();
+      }
+      options.htmlpath = htmlpath;
+      
+      // deal js
+      var todownloadCss = 0;
+      var downloadedCss = 0;
+      var isJsDone = false;
+      var isCssDone = false;
+
+      var __checkAllDone = function () {
+        if (isJsDone && isCssDone) {
+          cb && cb($.html());
+        }
+      };
+
+
+      var jser = new JsProcessor($, options, function () {
+        isJsDone = true;
+        __checkAllDone();
+      });
+
+      // deal css
+      var csser = new CssProcessor($, options, function () {
+        isCssDone = true;
+        __checkAllDone();
+      })
       
   };
 
@@ -191,7 +306,9 @@ module.exports = function (opt) {
 
     var options = extend({
         removeSelector: '[will-remove]',
-        keyattr: 'data-htmlone',
+        keepliveSelector: '[keeplive]',
+        destDir: './',
+        coimport: true,
         cssminify: true,
         jsminify: true
     }, (opt || {}));
@@ -214,7 +331,7 @@ module.exports = function (opt) {
 
         _done ++;
         if (_done === _todo) {
-            fsutil.rmdirSync('./temp/');
+            fsutil.rmdirSync('./'+TEMP_DIR+'/');
             gutil.log(gutil.colors.cyan('>> All html done!'));
         }
     });
