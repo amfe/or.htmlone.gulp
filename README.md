@@ -3,6 +3,8 @@
 version 0.1.0
 combo and minify `css` and `js` to html. no matter the file is online or not.
 
+[One-Request](http://gitlab.alibaba-inc.com/groups/one-request)集成解决方案之一，厂内同学请移步[Group:One-Request](http://gitlab.alibaba-inc.com/groups/one-request)
+
 ## Features
 
 + css, js自动内联
