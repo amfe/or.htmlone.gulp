@@ -1,6 +1,6 @@
 # gulp-htmlone
 
-version 0.1.0
+version 0.1.1
 combo and minify `css` and `js` to html. no matter the file is online or not.
 
 [One-Request](http://gitlab.alibaba-inc.com/groups/one-request)集成解决方案之一，厂内同学请移步[Group:One-Request](http://gitlab.alibaba-inc.com/groups/one-request)
@@ -57,3 +57,4 @@ MIT
   + 新增 `destDir` 配置，用于当destFile和sourceFile不在一级目录的时候，css等资源内联后内部url相对路径资源修正
   + 新增 `coimport` 配置，用于选择是否需要将css 中 `@import` 进行combile后再内联至html文档。支持@import 递归 和 http url 的import 以及路径修正
   + 中间临时文件处理目录由 `temp` 变为 `htmlone_temp` ，temp目录太通用，容易冲突
+- 0.1.1 css的压缩不用less处理，改为`ycssmin`, 避免windows环境下dataurl less处理的路径bug。

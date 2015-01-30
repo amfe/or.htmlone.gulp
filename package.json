@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlone",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "combo js & css assests to html doc",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "gulp-util": "^3.0.0",
     "cheerio": "~0.17.0",
     "fsmore": "~1.0.1",
-    "less": "~1.7.3",
+    "ycssmin": "^1.0.1",
     "uglify-js": "~2.4.0",
     "coimport": "~1.0.0"
   },

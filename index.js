@@ -4,7 +4,7 @@ var path = require('path');
 
 var cheerio = require('cheerio');
 var uglify = require('uglify-js');
-var less = require('less');
+var cssmin = require('ycssmin').cssmin;
 var fs = require('fs');
 var fsutil = require('fsmore');
 var url = require('url');
@@ -203,20 +203,13 @@ CssProcessor.prototype = {
       var $ = this.$;
       var me = this;
       if (this.options.cssminify) {
-          less.render(cssCon, {compress:true}, function (e, output) {
-              output = me.fixAssetsPath(sourcePath, output);
-              var style = $('<style>'+output+'</style>');
-              $css.replaceWith(style);
-              me._done ++;
-              me._checkCssDone();
-          });
-      } else {
-        var style = $('<style>'+cssCon+'</style>');
-        cssCon = me.fixAssetsPath(sourcePath, cssCon);
-        $css.replaceWith(style);
-        this._done ++;
-        this._checkCssDone();
+          cssCon = cssmin(cssCon);
       }
+      cssCon = me.fixAssetsPath(sourcePath, cssCon);
+      var style = $('<style>'+cssCon+'</style>');
+      $css.replaceWith(style);
+      this._done ++;
+      this._checkCssDone();
   },
   fixAssetsPath: function (sourcePath, cssStr) {
     var con = this.uniform(cssStr);
