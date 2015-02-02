@@ -218,7 +218,7 @@ CssProcessor.prototype = {
     var me = this;
     // fix relative path or `url`
     con = con.replace(/url\(\s*([\S^\)]+)\s*\)/g, function (c, d) {
-        if (/^http/.test(d)) return c;
+        if (/^http|^\/\/|^data:/.test(d)) return c;
         var file_dirname = path.dirname(path.resolve(dirname, b));
         var assetpath = path.resolve(file_dirname, d);
         assetpath = path.relative(dirname, assetpath);
@@ -229,7 +229,7 @@ CssProcessor.prototype = {
     });
     // fix relative path of `import string`
     con = con.replace(/@import\s*"([^"]+)"\s*;/g, function (e, f) {
-        if (/^http/.test(f)) return e;
+        if (/^http|^\/\/|^data:/.test(f)) return e;
         var file_dirname = path.dirname(path.resolve(dirname, b));
         var assetpath = path.resolve(file_dirname, f);
         assetpath = path.relative(dirname, assetpath);
