@@ -1,7 +1,0 @@
-@import 'sub.css';
-
-body,html,h1,h2 {
-	margin: 0;
-	padding: 0;
-	background: url(../images/beg-bg.png);
-}

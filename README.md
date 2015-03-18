@@ -1,6 +1,13 @@
 # gulp-htmlone
 
-version 0.1.2
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][downloads-url]
+
+[npm-image]: https://img.shields.io/npm/v/gulp-htmlone.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/gulp-htmlone
+[downloads-image]: http://img.shields.io/npm/dm/gulp-htmlone.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/gulp-htmlone
+
 combo and minify `css` and `js` to html. no matter the file is online or not.
 
 [One-Request](http://gitlab.alibaba-inc.com/groups/one-request)集成解决方案之一，厂内同学请移步[Group:One-Request](http://gitlab.alibaba-inc.com/groups/one-request)
@@ -59,3 +66,4 @@ MIT
   + 中间临时文件处理目录由 `temp` 变为 `htmlone_temp` ，temp目录太通用，容易冲突
 - 0.1.1 css的压缩不用less处理，改为`ycssmin`, 避免windows环境下dataurl less处理的路径bug。
 - 0.1.2 修复 dataurl 当作相对路径处理的bug
+- 0.1.3 修复全站https化后 `//aaa.com` 的处理问题
