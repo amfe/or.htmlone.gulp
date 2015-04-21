@@ -67,3 +67,4 @@ MIT
 - 0.1.1 css的压缩不用less处理，改为`ycssmin`, 避免windows环境下dataurl less处理的路径bug。
 - 0.1.2 修复 dataurl 当作相对路径处理的bug
 - 0.1.3 修复全站https化后 `//aaa.com` 的处理问题
+- 0.1.4 修复 css 的keeplive 无效的问题 [issue](http://gitlab.alibaba-inc.com/one-request/or-htmlone-gulp/issues/10)

@@ -141,56 +141,62 @@ var CssProcessor = function ($, options, cb) {
             var href = $(this).attr('href'); 
             var newCon = '\n';
             var $css = $(this);
+            var isKeeplive = $(this).is(options.keepliveSelector);
 
-            if (!reg_http.test(href)) {
-              var csshref = path.join(path.dirname(htmlpath), href);
-              if (fs.lstatSync(csshref).isFile()) {
-                newCon += (fs.readFileSync(csshref, {encoding:'utf8'}) + '\n');
-                var coimportFile = csshref + '.coimport';
-                fs.writeFileSync(coimportFile, newCon, {encoding: 'utf8'});
-                if (options.coimport) {
-                  //todo
-                  coimport(coimportFile, function ($css, csshref, coimportFile) {
-                    return function (newStr) {
-                      me.__cssMinifyAndReplace($css, csshref, newStr);
-                      fsutil.rmdirSync(coimportFile);
-                    }
-                  }($css, csshref, coimportFile))
-                } else {
-                  me.__cssMinifyAndReplace($css, csshref, newCon);
-                }
-              } else {
-                console.log('"'+href+'" in "' + htmlpath + '" is an invalid file or url!');
-              }
-            } else {
-              if (no_protocol.test(href)) href = 'http:' + href;
-              if (/\?\?/.test(href)) {
-                  //cdn combo
-                  var tempDestFile = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.css');
-                } else {
-                  var tempDestFile = path.join(TEMP_DIR, url.parse(href).pathname); 
-                }
-                
-                fsutil.download(href, tempDestFile, function ($css, tempDestFile) {
-                  return function () {
-                      console.log('"'+tempDestFile+'" downloaded!');
-                      var cssStr = fs.readFileSync(tempDestFile, {encoding:'utf8'});
-                      cssStr = me.fixAssetsPath(href, cssStr);
-                      var coimportFile = tempDestFile + '.coimport';
-                      fs.writeFileSync(coimportFile, cssStr, {encoding: 'utf8'});
-
+            if (!isKeeplive) {
+                if (!reg_http.test(href)) {
+                    var csshref = path.join(path.dirname(htmlpath), href);
+                    if (fs.lstatSync(csshref).isFile()) {
+                      newCon += (fs.readFileSync(csshref, {encoding:'utf8'}) + '\n');
+                      var coimportFile = csshref + '.coimport';
+                      fs.writeFileSync(coimportFile, newCon, {encoding: 'utf8'});
                       if (options.coimport) {
-                        coimport(coimportFile, function ($css, csshref) {
+                        //todo
+                        coimport(coimportFile, function ($css, csshref, coimportFile) {
                           return function (newStr) {
                             me.__cssMinifyAndReplace($css, csshref, newStr);
+                            fsutil.rmdirSync(coimportFile);
                           }
-                        }($css, href))
-
+                        }($css, csshref, coimportFile))
                       } else {
-                        me.__cssMinifyAndReplace($css, href, cssStr);
+                        me.__cssMinifyAndReplace($css, csshref, newCon);
                       }
+                    } else {
+                      console.log('"'+href+'" in "' + htmlpath + '" is an invalid file or url!');
+                    }
+                  } else {
+                    if (no_protocol.test(href)) href = 'http:' + href;
+                    if (/\?\?/.test(href)) {
+                        //cdn combo
+                        var tempDestFile = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.css');
+                      } else {
+                        var tempDestFile = path.join(TEMP_DIR, url.parse(href).pathname); 
+                      }
+                      
+                      fsutil.download(href, tempDestFile, function ($css, tempDestFile) {
+                        return function () {
+                            console.log('"'+tempDestFile+'" downloaded!');
+                            var cssStr = fs.readFileSync(tempDestFile, {encoding:'utf8'});
+                            cssStr = me.fixAssetsPath(href, cssStr);
+                            var coimportFile = tempDestFile + '.coimport';
+                            fs.writeFileSync(coimportFile, cssStr, {encoding: 'utf8'});
+
+                            if (options.coimport) {
+                              coimport(coimportFile, function ($css, csshref) {
+                                return function (newStr) {
+                                  me.__cssMinifyAndReplace($css, csshref, newStr);
+                                }
+                              }($css, href))
+
+                            } else {
+                              me.__cssMinifyAndReplace($css, href, cssStr);
+                            }
+                        }
+                      }($css, tempDestFile));
                   }
-                }($css, tempDestFile));
+            } else {
+                me._done ++;
+                me._checkCssDone();
             }
 
         });
