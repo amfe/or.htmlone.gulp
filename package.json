@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlone",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "combo js & css assests to html doc",
   "main": "index.js",
   "scripts": {

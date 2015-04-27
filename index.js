@@ -17,6 +17,7 @@ var pluginName = 'gulp-htmlone';
 var TEMP_DIR = 'htmlone_temp';
 var reg_http = /^(\s+)?(http(s)?\:)?\/\//;
 var no_protocol = /^(\s+)?\/\//;
+var data_url = /^data:/;
 
 function extend (dest, source, isOverwrite) {
     if (isOverwrite == undefined) isOverwrite = true;
@@ -232,7 +233,10 @@ CssProcessor.prototype = {
     // fix relative path or `url`
     con = con.replace(/url\(\s*([\S^\)]+)\s*\)/g, function (c, d) {
         //if (no_protocol.test(d)) d = 'http:' + d;
-        if (reg_http.test(d) || /^data:/.test(d)) return c;
+        if (reg_http.test(d) || data_url.test(d)) return c;
+
+        console.log(d, c);
+
         var file_dirname = path.dirname(path.resolve(dirname, b));
         var assetpath = path.resolve(file_dirname, d);
         assetpath = path.relative(dirname, assetpath);
@@ -245,7 +249,7 @@ CssProcessor.prototype = {
     // fix relative path of `import string`
     con = con.replace(/@import\s*"([^"]+)"\s*;/g, function (e, f) {
         //if (no_protocol.test(f)) f = 'http:' + f;
-        if (reg_http.test(f) || /^data:/.test(f)) return e;
+        if (reg_http.test(f) || data_url.test(f)) return e;
         var file_dirname = path.dirname(path.resolve(dirname, b));
         var assetpath = path.resolve(file_dirname, f);
         assetpath = path.relative(dirname, assetpath);
@@ -257,10 +261,11 @@ CssProcessor.prototype = {
     return con;
   },
   // 当源css是url时，css中 相对路径先替换为绝对的 
+  // 处理不了多个css combo 的情况
   rela2abs: function (uri, cssStr) {
     if (no_protocol.test(uri)) uri = 'http:' + uri;
     var con = cssStr.replace(/url\(\s*([\S^\)]+)\s*\)/g, function (c, d) {
-      if (!reg_http.test(d)) {
+      if (!reg_http.test(d) && !data_url.test(d)) {
         var uo = url.parse(uri);
         var newPath = path.join(path.dirname(uo.pathname), d);
         newPath = 'http://' + uo.hostname + newPath;
