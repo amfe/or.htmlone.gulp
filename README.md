@@ -69,3 +69,4 @@ MIT
 - 0.1.3 修复全站https化后 `//aaa.com` 的处理问题
 - 0.1.4 修复 css 的keeplive 无效的问题 [issue](http://gitlab.alibaba-inc.com/one-request/or-htmlone-gulp/issues/10)
 - 0.1.5 修复 0.1.3 & 0.1.4 版本的data img 判断问题
+- 0.1.6 修复 uglifyjs 默认吧 `\x3c/script>` 解成 `</script>`导致内联script脚本非预期截断的问题
