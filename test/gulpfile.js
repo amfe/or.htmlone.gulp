@@ -4,7 +4,7 @@ console.log(htmlone)
 
 gulp.task('htmlone', function() {
     gulp.src(['./*.html'])
-        .pipe(htmlone({destDir: './dest',cssminify:false}))
+        .pipe(htmlone({destDir: './dest',cssminify:false,jsminify:true}))
         .pipe(gulp.dest('./dest'));
 });
 
