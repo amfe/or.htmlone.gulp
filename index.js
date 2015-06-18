@@ -102,7 +102,7 @@ JsProcessor.prototype = {
       jscon = uglify.minify(jscon, {
         fromString: true,
         mangle: true
-      }).code;
+      }).code.replace(/\<\/script\>/g, '\\x3c/script>');
     }
 
     // do not use .html()
