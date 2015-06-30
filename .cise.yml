@@ -1,0 +1,37 @@
+stage:
+  iojs-1:
+    prepare:
+      exec:
+      - yum install -y alinode-iojs-1.8.1 -b current
+      - rm -f /opt/taobao/node
+      - ln -s /opt/taobao/install/iojs-1.8.1 /opt/taobao/node
+      - PATH=/opt/taobao/node/bin:$PATH npm i tnpm -g --registry=http://registry.npm.alibaba-inc.com
+      - PATH=/opt/taobao/node/bin:$PATH tnpm i
+    unit_test:
+      exec:
+      - PYTHON=python2.6 PATH=/opt/taobao/node/bin:$PATH tnpm test
+  alinode-0.12.0:
+    prepare:
+      exec:
+      - yum install -y alinode-iojs-0.12.0 -b current
+      - rm -f /opt/taobao/node
+      - ln -s /opt/taobao/install/iojs-0.12.0 /opt/taobao/node
+      - PATH=/opt/taobao/node/bin:$PATH npm i tnpm -g --registry=http://registry.npm.alibaba-inc.com
+      - PATH=/opt/taobao/node/bin:$PATH tnpm i
+    unit_test:
+      exec:
+      - PYTHON=python2.6 PATH=/opt/taobao/node/bin:$PATH tnpm test
+  node-0.11.12:
+    prepare:
+      exec:
+      - yum install -y alinode-iojs-0.11.12 -b current
+      - rm -f /opt/taobao/node
+      - ln -s /opt/taobao/install/iojs-0.11.12 /opt/taobao/node
+      - PATH=/opt/taobao/node/bin:$PATH npm i tnpm -g --registry=http://registry.npm.alibaba-inc.com
+      - PATH=/opt/taobao/node/bin:$PATH tnpm i
+    unit_test:
+      exec:
+      - PYTHON=python2.6 PATH=/opt/taobao/node/bin:$PATH tnpm test
+
+pipeline:
+- iojs-1, alinode-0.12.0, node-0.11.12

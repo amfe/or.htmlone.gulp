@@ -1,0 +1,1158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for or-htmlone-gulp/index.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">or-htmlone-gulp/index.js</span></h1>
+    <h2>
+        Statements: <span class="metric">92.24% <small>(202 / 219)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">71.11% <small>(64 / 90)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">96.88% <small>(31 / 32)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">93.81% <small>(197 / 210)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">or-htmlone-gulp/</a> &#187; index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">16</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">18</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var through = require('through2');
+var gutil = require('gulp-util');
+var path = require('path');
+&nbsp;
+var cheerio = require('cheerio');
+var uglify = require('uglify-js');
+var cssmin = require('ycssmin').cssmin;
+var fs = require('fs');
+var fsutil = require('fsmore');
+var url = require('url');
+var http = require('http');
+var coimport = require('coimport');
+&nbsp;
+&nbsp;
+var PluginError = gutil.PluginError;
+var pluginName = 'gulp-htmlone';
+var TEMP_DIR = 'htmlone_temp';
+var reg_http = /^(\s+)?(http(s)?\:)?\/\//;
+var no_protocol = /^(\s+)?\/\//;
+var data_url = /^data:/;
+&nbsp;
+function extend (dest, source, isOverwrite) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (isOverwrite == undefined) isOverwrite = true;
+    for (var k in source) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (!(k in dest) || isOverwrite) {
+            dest[k] = source[k]
+        }
+    }
+    return dest;
+}
+&nbsp;
+var __uniqueId = function () {
+  var i = 0;
+  return function () {
+    return i ++;
+  }
+}();
+&nbsp;
+// js process
+var JsProcessor = function ($, options, cb) {
+  this.doneJs = 0;
+  this.isDone = false;
+  this.cb = cb;
+  this.options = options;
+  this.$js = $('script');
+  this.$ = $;
+&nbsp;
+  var js = this.$js;
+  var me = this;
+  var htmlpath = options.htmlpath;
+&nbsp;
+  if (js.length === 0) {
+      this.isDone = true;
+      this.cb &amp;&amp; this.cb();
+    } else {
+      js.each(function (i, el) {
+          var $el = $(this);
+          var src = $(this).attr('src');
+          var type = $(this).attr('type');
+          var oldCon = $(this).html();
+          var newCon = '\n';
+          var isKeeplive = $el.is(options.keepliveSelector);
+&nbsp;
+          <span class="missing-if-branch" title="else path not taken" >E</span>if ((!type || <span class="branch-1 cbranch-no" title="branch not covered" >type === 'text/javascript')</span> &amp;&amp; !!src &amp;&amp; !isKeeplive) { 
+            if (!reg_http.test(src)) {
+              var jssrc = path.join(path.dirname(htmlpath), src);
+              <span class="missing-if-branch" title="else path not taken" >E</span>if (fs.lstatSync(jssrc).isFile()) { 
+                newCon += fs.readFileSync(jssrc, {encoding: 'utf8'});
+                me.__minifyAndReplace($el, newCon);
+                me.__checkJsDone();
+              } else {
+<span class="cstat-no" title="statement not covered" >                console.log('"'+src+'" in "' + htmlpath + '" is an invalid file or url!');</span>
+              }
+            } else {
+              //download &amp; replace
+              <span class="missing-if-branch" title="else path not taken" >E</span>if (no_protocol.test(src)) src = 'http:' + src;
+              if (/\?\?/.test(src)) {
+                  //cdn combo
+                  var destPath = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.js');
+                } else {
+                  var destPath = path.join(TEMP_DIR, url.parse(src).pathname); 
+                }
+&nbsp;
+              fsutil.download(src, destPath, function ($js, destPath) {
+                return function () {
+                  console.log('"'+destPath+'" downloaded!');
+                  me.__minifyAndReplace($el, fs.readFileSync(destPath, {encoding:'utf8'}));
+                  me.__checkJsDone();
+                }
+              }($el, destPath));
+            }
+          } else {
+<span class="cstat-no" title="statement not covered" >            me.__checkJsDone();</span>
+          }
+&nbsp;
+      });
+    }
+};
+JsProcessor.prototype = {
+  __minifyAndReplace: function ($el, jscon) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.options.jsminify) {
+      jscon = uglify.minify(jscon, {
+        fromString: true,
+        mangle: true
+      }).code.replace(/\&lt;\/script\&gt;/g, '\\x3c/script&gt;');
+    }
+&nbsp;
+    // do not use .html()
+    $el.empty().removeAttr('src');
+    var replaceStr = this.$.html($el).replace(/&lt;\/script&gt;/i, '') + jscon + '&lt;/script&gt;';
+    $el.replaceWith(replaceStr);
+  },
+  __checkJsDone: function () {
+    this.doneJs ++;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this.doneJs === this.$js.length) {
+        this.isDone = true;
+        this.cb &amp;&amp; this.cb();
+    }
+  }
+};
+&nbsp;
+&nbsp;
+// css processor
+var CssProcessor = function ($, options, cb) {
+  this._done = 0;
+  this.options = options;
+  this.cb = cb;
+&nbsp;
+  this.$ = $;
+  this.$css = $('link[rel=stylesheet]');
+  this.fixRelaPath = path.relative(options.destDir, './');
+&nbsp;
+  var css = this.$css;
+  var htmlpath = options.htmlpath;
+  var me = this;
+&nbsp;
+  if (css.length === 0) {
+        this.isDone = true;
+        this.cb &amp;&amp; this.cb();
+      } else {
+        css.each(function (i, el) {
+            var href = $(this).attr('href'); 
+            var newCon = '\n';
+            var $css = $(this);
+            var isKeeplive = $(this).is(options.keepliveSelector);
+&nbsp;
+            if (!isKeeplive) {
+                if (!reg_http.test(href)) {
+                    var csshref = path.join(path.dirname(htmlpath), href);
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (fs.lstatSync(csshref).isFile()) {
+                      newCon += (fs.readFileSync(csshref, {encoding:'utf8'}) + '\n');
+                      var coimportFile = csshref + '.coimport';
+                      fs.writeFileSync(coimportFile, newCon, {encoding: 'utf8'});
+                      <span class="missing-if-branch" title="else path not taken" >E</span>if (options.coimport) {
+                        //todo
+                        coimport(coimportFile, function ($css, csshref, coimportFile) {
+                          return function (newStr) {
+                            me.__cssMinifyAndReplace($css, csshref, newStr);
+                            fsutil.rmdirSync(coimportFile);
+                          }
+                        }($css, csshref, coimportFile))
+                      } else {
+<span class="cstat-no" title="statement not covered" >                        me.__cssMinifyAndReplace($css, csshref, newCon);</span>
+                      }
+                    } else {
+<span class="cstat-no" title="statement not covered" >                      console.log('"'+href+'" in "' + htmlpath + '" is an invalid file or url!');</span>
+                    }
+                  } else {
+                    if (no_protocol.test(href)) href = 'http:' + href;
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (/\?\?/.test(href)) {
+                        //cdn combo
+<span class="cstat-no" title="statement not covered" >                        var tempDestFile = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.css');</span>
+                      } else {
+                        var tempDestFile = path.join(TEMP_DIR, url.parse(href).pathname); 
+                      }
+                      
+                      fsutil.download(href, tempDestFile, function ($css, tempDestFile) {
+                        return function () {
+                            console.log('"'+tempDestFile+'" downloaded!');
+                            var cssStr = fs.readFileSync(tempDestFile, {encoding:'utf8'});
+                            cssStr = me.fixAssetsPath(href, cssStr);
+                            var coimportFile = tempDestFile + '.coimport';
+                            fs.writeFileSync(coimportFile, cssStr, {encoding: 'utf8'});
+&nbsp;
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (options.coimport) {
+                              coimport(coimportFile, function ($css, csshref) {
+                                return function (newStr) {
+                                  me.__cssMinifyAndReplace($css, csshref, newStr);
+                                }
+                              }($css, href))
+&nbsp;
+                            } else {
+<span class="cstat-no" title="statement not covered" >                              me.__cssMinifyAndReplace($css, href, cssStr);</span>
+                            }
+                        }
+                      }($css, tempDestFile));
+                  }
+            } else {
+                me._done ++;
+                me._checkCssDone();
+            }
+&nbsp;
+        });
+      }
+};
+CssProcessor.prototype = {
+  _checkCssDone: function () {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (this._done === this.$css.length) {
+      this.isDone = true;
+      this.cb &amp;&amp; this.cb();
+    }
+  },
+  __cssMinifyAndReplace: function ($css, sourcePath, cssCon) {
+      var $ = this.$;
+      var me = this;
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (this.options.cssminify) {
+          cssCon = cssmin(cssCon);
+      }
+      cssCon = me.fixAssetsPath(sourcePath, cssCon);
+      var style = $('&lt;style&gt;'+cssCon+'&lt;/style&gt;');
+      $css.replaceWith(style);
+      this._done ++;
+      this._checkCssDone();
+  },
+  fixAssetsPath: function (sourcePath, cssStr) {
+    var con = this.uniform(cssStr);
+    if (reg_http.test(sourcePath)) con = this.rela2abs(sourcePath, con);
+&nbsp;
+    var dirname = path.dirname(this.options.htmlpath);
+    var b = sourcePath;
+    var me = this;
+&nbsp;
+    // fix relative path or `url`
+    con = con.replace(/url\(\s*([\S^\)]+)\s*\)/g, function (c, d) {
+        //if (no_protocol.test(d)) d = 'http:' + d;
+        if (reg_http.test(d) || data_url.test(d)) return c;
+&nbsp;
+        console.log(d, c);
+&nbsp;
+        var file_dirname = path.dirname(path.resolve(dirname, b));
+        var assetpath = path.resolve(file_dirname, d);
+        assetpath = path.relative(dirname, assetpath);
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (!reg_http.test(assetpath)) {
+          assetpath = path.join(me.fixRelaPath, assetpath);
+        }
+        //console.log(d, assetpath);
+        return 'url('+assetpath+')';
+    });
+    // fix relative path of `import string`
+    con = con.replace(/@import\s*"([^"]+)"\s*;/g, <span class="fstat-no" title="function not covered" >function (e, f) {</span>
+        //if (no_protocol.test(f)) f = 'http:' + f;
+<span class="cstat-no" title="statement not covered" >        if (reg_http.test(f) || data_url.test(f)) <span class="cstat-no" title="statement not covered" >return e;</span></span>
+<span class="cstat-no" title="statement not covered" >        var file_dirname = path.dirname(path.resolve(dirname, b));</span>
+<span class="cstat-no" title="statement not covered" >        var assetpath = path.resolve(file_dirname, f);</span>
+<span class="cstat-no" title="statement not covered" >        assetpath = path.relative(dirname, assetpath);</span>
+<span class="cstat-no" title="statement not covered" >        if (!reg_http.test(assetpath)) {</span>
+<span class="cstat-no" title="statement not covered" >          assetpath = path.join(me.fixRelaPath, assetpath);</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return '@import "'+assetpath+'";';</span>
+    });
+    return con;
+  },
+  // 当源css是url时，css中 相对路径先替换为绝对的 
+  // 处理不了多个css combo 的情况
+  rela2abs: function (uri, cssStr) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (no_protocol.test(uri)) <span class="cstat-no" title="statement not covered" >uri = 'http:' + uri;</span>
+    var con = cssStr.replace(/url\(\s*([\S^\)]+)\s*\)/g, function (c, d) {
+      if (!reg_http.test(d) &amp;&amp; !data_url.test(d)) {
+        var uo = url.parse(uri);
+        var newPath = path.join(path.dirname(uo.pathname), d);
+        newPath = 'http://' + uo.hostname + newPath;
+        return 'url('+ newPath +')';
+      } else {
+        return c;
+      }
+    });
+&nbsp;
+    return con;
+  },
+  uniform: function (css) {
+    // uniform @import
+      css = css
+        .replace(/@import\s+url\(\s*"([^"]+)"\s*\)\s*;/g, '@import "$1";')
+        .replace(/@import\s+url\(\s*\'([^\']+)\'\s*\)\s*;/g, '@import "$1";')
+        .replace(/@import\s+url\(\s*([\S^\)]+)\s*\)\s*;/g, '@import "$1";')
+        .replace(/@import\s*"([^"]+)"\s*;/g, '@import "$1";')
+        .replace(/@import\s*\'([^\']+)\'\s*;/g, '@import "$1";');
+        
+      // uniform url()
+      css = css
+        .replace(/url\(\s*"([^"]+)"\s*\)/g, 'url($1)')
+        .replace(/url\(\s*\'([^\']+)\'\s*\)/g, 'url($1)')
+        .replace(/url\(\s*([\S^\)]+)\s*\)/g, 'url($1)');
+&nbsp;
+        return css;
+    }
+};
+&nbsp;
+var dealScripts = function (htmlpath, htmlFrag, options, cb) {
+&nbsp;
+      //console.log(htmlFrag, options);
+      var $ = cheerio.load(htmlFrag, {decodeEntities: false, normalizeWhitespace: false});
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (options.removeSelector) {
+        $(options.removeSelector).remove();
+      }
+      options.htmlpath = htmlpath;
+      
+      // deal js
+      var todownloadCss = 0;
+      var downloadedCss = 0;
+      var isJsDone = false;
+      var isCssDone = false;
+&nbsp;
+      var __checkAllDone = function () {
+        if (isJsDone &amp;&amp; isCssDone) {
+          cb &amp;&amp; cb($.html());
+        }
+      };
+&nbsp;
+&nbsp;
+      var jser = new JsProcessor($, options, function () {
+        isJsDone = true;
+        __checkAllDone();
+      });
+&nbsp;
+      // deal css
+      var csser = new CssProcessor($, options, function () {
+        isCssDone = true;
+        __checkAllDone();
+      })
+      
+  };
+&nbsp;
+&nbsp;
+module.exports = function (opt) {
+&nbsp;
+    var options = extend({
+        removeSelector: '[will-remove]',
+        keepliveSelector: '[keeplive]',
+        destDir: './',
+        coimport: true,
+        cssminify: true,
+        jsminify: true
+    }, (opt || {}));
+&nbsp;
+    var _todo = 0;
+    var _done = 0;
+&nbsp;
+  function transform(file, enc, cb) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (file.isNull()) <span class="cstat-no" title="statement not covered" >return cb(null, file); </span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (file.isStream()) <span class="cstat-no" title="statement not covered" >return cb(new PluginError(pluginName, 'Streaming not supported'));</span>
+&nbsp;
+    var data;
+    var str = file.contents.toString('utf8');
+    var filepath = file.path;
+&nbsp;
+    _todo ++;
+    dealScripts(filepath, str, options, function (html) {
+        file.contents = new Buffer(html);
+        cb(null, file);
+&nbsp;
+        _done ++;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (_done === _todo) {
+            fsutil.rmdirSync('./'+TEMP_DIR+'/');
+            gutil.log(gutil.colors.cyan('&gt;&gt; All html done!'));
+        }
+    });
+  }
+&nbsp;
+  return through.obj(transform);
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 30 2015 16:06:56 GMT+0800 (CST)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
