@@ -2,6 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
+![cise](http://cise.alibaba-inc.com/task/69703/status.svg)
 
 [npm-image]: https://img.shields.io/npm/v/gulp-htmlone.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/gulp-htmlone
