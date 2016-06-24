@@ -268,7 +268,9 @@ CssProcessor.prototype = {
       if (!reg_http.test(d) && !data_url.test(d)) {
         var uo = url.parse(uri);
         var newPath = path.join(path.dirname(uo.pathname), d);
-        newPath = 'http://' + uo.hostname + newPath;
+        // newPath = 'http://' + uo.hostname + newPath;
+        // 对https也作兼容
+        newPath = '//' + uo.hostname + newPath;
         return 'url('+ newPath +')';
       } else {
         return c;
