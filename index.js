@@ -42,7 +42,7 @@ var JsProcessor = function ($, options, cb) {
   this.isDone = false;
   this.cb = cb;
   this.options = options;
-  this.$js = $('script');
+  this.$js = $('script'+(options.selector || ''));
   this.$ = $;
 
   var js = this.$js;
@@ -61,10 +61,10 @@ var JsProcessor = function ($, options, cb) {
           var newCon = '\n';
           var isKeeplive = $el.is(options.keepliveSelector);
 
-          if ((!type || type === 'text/javascript') && !!src && !isKeeplive) { 
+          if ((!type || type === 'text/javascript') && !!src && !isKeeplive) {
             if (!reg_http.test(src)) {
               var jssrc = path.join(path.dirname(htmlpath), src);
-              if (fs.lstatSync(jssrc).isFile()) { 
+              if (fs.lstatSync(jssrc).isFile()) {
                 newCon += fs.readFileSync(jssrc, {encoding: 'utf8'});
                 me.__minifyAndReplace($el, newCon);
                 me.__checkJsDone();
@@ -78,7 +78,7 @@ var JsProcessor = function ($, options, cb) {
                   //cdn combo
                   var destPath = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.js');
                 } else {
-                  var destPath = path.join(TEMP_DIR, url.parse(src).pathname); 
+                  var destPath = path.join(TEMP_DIR, url.parse(src).pathname);
                 }
 
               fsutil.download(src, destPath, function ($js, destPath) {
@@ -127,7 +127,7 @@ var CssProcessor = function ($, options, cb) {
   this.cb = cb;
 
   this.$ = $;
-  this.$css = $('link[rel=stylesheet]');
+  this.$css = $('link[rel=stylesheet]'+(options.selector || ''));
   this.fixRelaPath = path.relative(options.destDir, './');
 
   var css = this.$css;
@@ -139,7 +139,7 @@ var CssProcessor = function ($, options, cb) {
         this.cb && this.cb();
       } else {
         css.each(function (i, el) {
-            var href = $(this).attr('href'); 
+            var href = $(this).attr('href');
             var newCon = '\n';
             var $css = $(this);
             var isKeeplive = $(this).is(options.keepliveSelector);
@@ -171,9 +171,9 @@ var CssProcessor = function ($, options, cb) {
                         //cdn combo
                         var tempDestFile = path.join(TEMP_DIR, 'cdn_combo_'+__uniqueId() + '.css');
                       } else {
-                        var tempDestFile = path.join(TEMP_DIR, url.parse(href).pathname); 
+                        var tempDestFile = path.join(TEMP_DIR, url.parse(href).pathname);
                       }
-                      
+
                       fsutil.download(href, tempDestFile, function ($css, tempDestFile) {
                         return function () {
                             console.log('"'+tempDestFile+'" downloaded!');
@@ -260,7 +260,7 @@ CssProcessor.prototype = {
     });
     return con;
   },
-  // 当源css是url时，css中 相对路径先替换为绝对的 
+  // 当源css是url时，css中 相对路径先替换为绝对的
   // 处理不了多个css combo 的情况
   rela2abs: function (uri, cssStr) {
     if (no_protocol.test(uri)) uri = 'http:' + uri;
@@ -287,7 +287,7 @@ CssProcessor.prototype = {
         .replace(/@import\s+url\(\s*([\S^\)]+)\s*\)\s*;/g, '@import "$1";')
         .replace(/@import\s*"([^"]+)"\s*;/g, '@import "$1";')
         .replace(/@import\s*\'([^\']+)\'\s*;/g, '@import "$1";');
-        
+
       // uniform url()
       css = css
         .replace(/url\(\s*"([^"]+)"\s*\)/g, 'url($1)')
@@ -306,7 +306,7 @@ var dealScripts = function (htmlpath, htmlFrag, options, cb) {
         $(options.removeSelector).remove();
       }
       options.htmlpath = htmlpath;
-      
+
       // deal js
       var todownloadCss = 0;
       var downloadedCss = 0;
@@ -330,13 +330,14 @@ var dealScripts = function (htmlpath, htmlFrag, options, cb) {
         isCssDone = true;
         __checkAllDone();
       })
-      
+
   };
 
 
 module.exports = function (opt) {
 
     var options = extend({
+        selector: false,
         removeSelector: '[will-remove]',
         keepliveSelector: '[keeplive]',
         destDir: './',
@@ -349,7 +350,7 @@ module.exports = function (opt) {
     var _done = 0;
 
   function transform(file, enc, cb) {
-    if (file.isNull()) return cb(null, file); 
+    if (file.isNull()) return cb(null, file);
     if (file.isStream()) return cb(new PluginError(pluginName, 'Streaming not supported'));
 
     var data;
